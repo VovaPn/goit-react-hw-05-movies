@@ -4,7 +4,7 @@ import { fetchMovieAdd } from 'api/fetchMovies';
 import { CastList } from '../../components/CastList/CastList';
 
 const Cast = () => {
-  const [movieCast, setMovieCast] = useState([]);
+  const [movieCast, setMovieCast] = useState('');
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -14,8 +14,17 @@ const Cast = () => {
     };
     getMovieCast();
   }, [movieId]);
-
-  return <div>{movieCast.cast && <CastList movieCast={movieCast.cast} />}</div>;
+  const { cast } = movieCast;
+  console.log(cast);
+  return (
+    <div>
+      {cast?.length > 0 ? (
+        <CastList movieCast={cast} />
+      ) : (
+        <p>Sorry we don't have any information about cast</p>
+      )}
+    </div>
+  );
 };
 
 export default Cast;
